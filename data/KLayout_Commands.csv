@@ -1,0 +1,342 @@
+﻿KLayout DRC コマンド一覧,,,,,,,
+,,,,,,,
+,,,,,,,
+Command,argument(type),引数（型）,Description,説明,戻り値,Usage,Source
+input,"layer (integer), datatype (integer)","レイヤー番号（整数）, データタイプ（整数）","Creates an input layer object representing shapes, edges, or edge pairs from the specified GDS layer and datatype.",指定されたGDSレイヤーおよびデータタイプから、図形、エッジ、またはエッジペアを表す入力レイヤーオブジェクトを作成します。,Layer object,"active = input(1, 0)",DRC Basics
+&,other_layer (Layer object),対象レイヤー（レイヤーオブジェクト）,Computes the boolean AND (intersection) of two layers.,2つのレイヤーの論理積（AND：交差領域）を計算します。,Layer object,gate = active & poly,DRC Basics
+width,min_width (number or length unit),最小幅（数値または長さ単位）,Performs a width check against a minimum width.,指定された最小幅に対して幅チェックを実行します。,Layer object (collection of edge pairs),"gate.width(0.3)
+gate.width(0.3.micron)
+gate.width(300.nm)
+gate.width(300)",DRC Basics
+space,min_space (number or length unit),最小間隔（数値または長さ単位）,Performs a space check for minimum spacing.,指定された最小間隔に対してスペースチェックを実行します。,Layer object (collection of edge pairs),metal1.space(0.4),DRC Basics
+and,other_layer (Layer object),対象レイヤー（レイヤーオブジェクト）,Object-oriented alias for the boolean AND operation.,論理積（AND）演算のオブジェクト指向記法のエイリアス。,Layer object,"input(1, 0).and(input(6, 0))",DRC Basics
+sized,dimension (number or length unit),寸法（数値または長さ単位）,Sizes (expands or shrinks) the layer shapes by the given dimension.,指定した寸法でレイヤー図形をサイズ変更（拡大・縮小）します。,Layer object,"input(1, 0).sized(200.nm)",DRC Basics
+report,"description (string) or description (string), filename (string)","説明（文字列）、または説明（文字列）, ファイル名（文字列）",Instructs the script to send output to a report database.,スクリプトの出力をレポートデータベースに送信するように指示します。,ソースに記載なし,"report(""A simple script"")
+report(""Output Database"", ""out.lyrdb"")",DRC Basics
+output,"category_name (string), description (string) OR layer (integer), datatype (integer) OR category_name (string)","カテゴリ名（文字列）, 説明（文字列） または レイヤー番号（整数）, データタイプ（整数） または カテゴリ名（文字列）",Sends the check results or layer objects to a report database category or a layout layer.,チェック結果またはレイヤーオブジェクトを、レポートデータベースのカテゴリまたはレイアウトレイヤーに出力します。,ソースに記載なし,"gate.width(0.3).output(""gate_width"", ""Gate width violations"")
+input(1, 0).sized(200.nm).output(10, 0)
+input(1, 0).sized(200.nm).output(""sized"")",DRC Basics
+source,filename (string),ファイル名（文字列）,Specifies the input layout file explicitly for standalone/non-interactive DRC mode.,スタンドアロン/非対話型DRCモードにおいて、入力レイアウトファイルを明示的に指定します。,ソースに記載なし,"source(""input.gds"")",DRC Basics
+target,filename (string),ファイル名（文字列）,Specifies the output layout file explicitly for standalone DRC mode.,スタンドアロンDRCモードにおいて、出力レイアウトファイルを明示的に指定します。,ソースに記載なし,"target(""out.gds"")",DRC Basics
+!,expression (DRC expression),式（DRC式）,"Evaluates the expression after. If it renders an empty result, returns the primary shape; otherwise returns an empty result.",後ろの式を評価します。その式の結果が空であれば主形状（primary shape）を返し、空でなければ空の結果を返します。,DRC expression,! expression,DRC expressions
+&,expression & expression (edge or polygon DRC expressions),式 & 式（エッジまたはポリゴンのDRC式）,Computes the boolean AND between the results of two expressions.,2つの式の結果の論理積（Boolean AND）を計算します。,DRC expression (edge or polygon),expression & expression,DRC expressions
++,expression + expression (DRC expressions),式 + 式（DRC式）,Joins the results of two expressions (Boolean OR).,2つの式の結果を結合します（論理和）。,DRC expression,expression + expression,DRC expressions
+-,"expression - expression (polygon, edge, or edge and polygon)",式 - 式（ポリゴン、エッジ、またはエッジとポリゴン）,Computes the difference (Boolean NOT) between the results of two expressions.,2つの式の結果の差分（Boolean NOT）を計算します。,DRC expression,expression - expression,DRC expressions
+angle,"in condition, optionally absolute",条件式内、オプションで absolute,Selects edges based on their angle relative to the horizontal axis.,水平軸に対する角度に基づいてエッジを選択します。,DRC expression (edge),expression.angle (in condition),DRC expressions
+area,in condition,条件式内,Selects the input polygon if its area meets the condition.,面積が条件を満たす場合、入力ポリゴンを選択します。,DRC expression (polygon),expression.area (in condition),DRC expressions
+area_ratio,in condition,条件式内,Selects the input polygon according to its area ratio (bounding box area by polygon area).,バウンディングボックス面積対ポリゴン面積の比（面積比）に従って入力ポリゴンを選択します。,DRC expression (polygon),expression.area_ratio (in condition),DRC expressions
+area_sum,in condition,条件式内,Selects the input polygons if the sum of all areas meets the condition.,全面積の合計が条件を満たす場合、入力ポリゴンを選択します。,DRC expression (polygon),expression.area_sum (in condition),DRC expressions
+bbox_aspect_ratio,in condition,条件式内,Selects the input polygon according to the aspect ratio of its bounding box.,バウンディングボックスのアスペクト比に従って入力ポリゴンを選択します。,DRC expression (polygon),expression.bbox_aspect_ratio (in condition),DRC expressions
+bbox_height,in condition,条件式内,Selects the input polygon if its bounding box height meets the condition.,バウンディングボックスの高さが条件を満たす場合、入力ポリゴンを選択します。,DRC expression (polygon),expression.bbox_height (in condition),DRC expressions
+bbox_max,in condition,条件式内,Selects the input polygon if its bounding box larger dimension meets the condition.,バウンディングボックスの長辺の寸法が条件を満たす場合、入力ポリゴンを選択します。,DRC expression (polygon),expression.bbox_max (in condition),DRC expressions
+bbox_min,in condition,条件式内,Selects the input polygon if its bounding box smaller dimension meets the condition.,バウンディングボックスの短辺の寸法が条件を満たす場合、入力ポリゴンを選択します。,DRC expression (polygon),expression.bbox_min (in condition),DRC expressions
+bbox_width,in condition,条件式内,Selects the input polygon if its bounding box width meets the condition.,バウンディングボックスの幅が条件を満たす場合、入力ポリゴンを選択します。,DRC expression (polygon),expression.bbox_width (in condition),DRC expressions
+centers,length (value/dimension),length（数値/寸法）,Returns the part at the center of each edge of the input.,入力の各エッジの中央部分を返します。,DRC expression (edge),expression.centers(length),DRC expressions
+corners,"options (as_dots, as_boxes, absolute) / optionally in condition","オプション（as_dots, as_boxes, absolute）/ 必要に応じて条件式内","Selects corners of polygons, optionally filtered by angle condition.",ポリゴンの角（コーナー）を選択します。必要に応じて角度条件で絞り込みます。,DRC expression (edge or polygon depending on options),expression.corners / expression.corners(options),DRC expressions
+count,in condition,条件式内,Selects an expression result based on the local count of resulting shapes.,ローカルに評価された結果形状の数に基づいて式の結果を選択します。,DRC expression,expression.count (in condition),DRC expressions
+covering,"other (layer/expression), optionally in condition",other（レイヤー/式）、必要に応じて条件式内,Selects primary shapes that entirely cover shapes from another layer.,別のレイヤーの形状を完全に覆っている主形状を選択します。,DRC expression (polygon),expression.covering(other) / covering(other),DRC expressions
+edges,"mode (convex, concave, step, step_in, step_out, not_...)","mode（convex, concave, step, step_in, step_out, not_...）",Converts input shapes into individual edges.,入力形状を個々のエッジに変換します。,DRC expression (edge),expression.edges / expression.edges(mode),DRC expressions
+end_segments,"length, fraction","length, fraction（長さ、割合）",Returns the part at the end of each edge of the input.,入力の各エッジの終端部分を返します。,DRC expression (edge),"expression.end_segments(length) / expression.end_segments(length, fraction)",DRC expressions
+extended,":begin => b, :end => e, :out => o, :in => i, :joined => true / b, e, o, i","オフセット引数（b, e, o, i）",Returns polygons describing an area along the edges of the input with offsets.,オフセットを指定して、入力エッジに沿った領域を表すポリゴンを返します。,DRC expression (polygon),"expression.extended(:begin => b, :end => e, :out => o, :in => i, :joined => true)",DRC expressions
+extended_in,d (dimension),d（寸法）,Returns polygons describing an area extending to the inside along the edges.,エッジに沿って内側に拡張した領域を表すポリゴンを返します。,DRC expression (polygon),expression.extended_in(d),DRC expressions
+extended_out,d (dimension),d（寸法）,Returns polygons describing an area extending to the outside along the edges.,エッジに沿って外側に拡張した領域を表すポリゴンを返します。,DRC expression (polygon),expression.extended_out(d),DRC expressions
+extent_refs,options,オプション,Returns partial references to the bounding boxes of the polygons.,ポリゴンのバウンディングボックスに対する部分的な参照を返します。,DRC expression,expression.extent_refs(options),DRC expressions
+extents,enlargement (optional),enlargement（拡大値、オプション）,Returns the bounding box of each input object.,各入力オブジェクトのバウンディングボックスを返します。,DRC expression (polygon),expression.extents(enlargement),DRC expressions
+first_edges,none,なし,Returns the first edges of edge pairs.,エッジペアの1番目のエッジを返します。,DRC expression (edge),expression.first_edges,DRC expressions
+holes,none,なし,Selects all holes from the input polygons.,入力ポリゴンからすべての孔（ホールの輪郭）を選択します。,DRC expression (polygon),expression.holes,DRC expressions
+hulls,none,なし,"Selects all hulls (outer contours) from the input polygons, effectively closing holes.",入力ポリゴンからすべてのハル（外側外形）を選択し、孔を塞ぎます。,DRC expression (polygon),expression.hulls,DRC expressions
+inside,other (layer/expression),other（レイヤー/式）,Selects shapes that are entirely inside shapes from the other layer.,別のレイヤーの形状の完全に内部にある形状を選択します。,DRC expression (polygon),expression.inside(other) / inside(other),DRC expressions
+interacting,"other (layer/expression), optionally in condition",other（レイヤー/式）、必要に応じて条件式内,Selects shapes interacting with (overlapping or touching) shapes from another layer.,別のレイヤーの形状と相互作用（重なり・接触）している形状を選択します。,DRC expression (polygon),expression.interacting(other) / interacting(other),DRC expressions
+length,in condition,条件式内,Selects edges based on their length condition.,長さの条件に基づいてエッジを選択します。,DRC expression (edge),expression.length (in condition),DRC expressions
+length_sum,in condition,条件式内,Selects the input edges if the sum of their lengths meets the condition.,長さの合計が条件を満たす場合、入力エッジを選択します。,DRC expression (edge),expression.length_sum (in condition),DRC expressions
+merged,min_count (optional),min_count（最小カウント、オプション）,"Returns the merged input polygons, optionally selecting areas of multi-overlap.",マージされた入力ポリゴンを返します。オプションで重複数が指定値を超える領域のみを選択します。,DRC expression (polygon),expression.merged / expression.merged(min_count),DRC expressions
+middle,options,オプション,Returns the centers of polygon bounding boxes.,ポリゴンのバウンディングボックスの中心（中心点/線）を返します。,DRC expression,expression.middle(options),DRC expressions
+outside,other (layer/expression),other（レイヤー/式）,Selects shapes entirely outside shapes from another layer.,別のレイヤーの形状の完全に外部にある形状を選択します。,DRC expression (polygon),expression.outside(other) / outside(other),DRC expressions
+overlapping,"other (layer/expression), optionally in condition",other（レイヤー/式）、必要に応じて条件式内,Selects shapes overlapping with shapes from another layer.,別のレイヤーの形状と重なっている形状を選択します。,DRC expression (polygon),expression.overlapping(other) / overlapping(other),DRC expressions
+perimeter,in condition,条件式内,Selects the input polygon if its perimeter meets the condition.,周囲長が条件を満たす場合、入力ポリゴンを選択します。,DRC expression (polygon),expression.perimeter (in condition),DRC expressions
+perimeter_sum,in condition,条件式内,Selects input polygons if the sum of all perimeters meets the condition.,全周囲長の合計が条件を満たす場合、入力ポリゴンを選択します。,DRC expression (polygon),expression.perimeter_sum (in condition),DRC expressions
+polygons,enlargement (optional),enlargement（拡大値、オプション）,"Converts input shapes (edges, edge pairs) into polygons.",入力形状（エッジ、エッジペア）をポリゴンに変換します。,DRC expression (polygon),expression.polygons(enlargement),DRC expressions
+rectangles,none,なし,Selects all polygons which are rectangles.,長方形であるすべてのポリゴンを選択します。,DRC expression (polygon),expression.rectangles,DRC expressions
+rectilinear,none,なし,Selects all polygons which are rectilinear (Manhattan polygons).,直交ポリゴン（マンハッタン形状）であるすべてのポリゴンを選択します。,DRC expression (polygon),expression.rectilinear,DRC expressions
+relative_height,in condition,条件式内,Selects input polygon according to the ratio of bounding box height vs. width.,バウンディングボックスの高さ対幅の比率に従って入力ポリゴンを選択します。,DRC expression (polygon),expression.relative_height (in condition),DRC expressions
+rounded_corners,"inner, outer, n","inner, outer, n（内側半径、外側半径、分割数）",Applies corner rounding with specified inner/outer radius and points per circle.,指定された内側・外側半径および分割数でコーナーの丸め処理を適用します。,DRC expression (polygon),"expression.rounded_corners(inner, outer, n)",DRC expressions
+second_edges,none,なし,Returns the second edges of edge pairs.,エッジペアの2番目のエッジを返します。,DRC expression (edge),expression.second_edges,DRC expressions
+sized,"d , mode / dx, dy , mode","d , mode / dx, dy , mode",Returns the sized version of the input polygon.,サイズ変更（リサイズ/サイジング）された入力ポリゴンを返します。,DRC expression (polygon),"expression.sized(d , mode) / expression.sized(dx, dy , mode))",DRC expressions
+smoothed,"d , keep_hv","d , keep_hv",Applies polygon smoothing with tolerance d.,許容値 d でポリゴンの平滑化（スムージング）を適用します。,DRC expression (polygon),"expression.smoothed(d , keep_hv)",DRC expressions
+squares,none,なし,Selects all polygons which are squares.,正方形であるすべてのポリゴンを選択します。,DRC expression (polygon),expression.squares,DRC expressions
+start_segments,"length, fraction","length, fraction（長さ、割合）",Returns the part at the beginning of each edge of the input.,入力の各エッジの始点部分を返します。,DRC expression (edge),"expression.start_segments(length) / expression.start_segments(length, fraction)",DRC expressions
+with_holes,in condition,条件式内,Selects all input polygons with the specified number of holes.,指定された数の孔を持つすべての入力ポリゴンを選択します。,DRC expression (polygon),expression.with_holes (in condition),DRC expressions
+|,expression | expression (same types),式 | 式（同タイプ）,Computes the boolean OR between the results of two expressions.,2つの式の結果の論理和（Boolean OR）を計算します。,DRC expression,expression | expression,DRC expressions
+angle,none (in condition),なし（条件文内）,In universal DRC context: selects edges based on their orientation,ユニバーサルDRCコンテキストにおいて、向きに基づいてエッジを選択します。,DRC expression (edge filter),angle (in condition),Global Functions
+antenna_check,"gate, metal, ratio, diode_specs ...","ゲート, メタル, 比率, ダイオード仕様 ...",Performs an antenna check,アンテナチェックを実行します。,ソースに記載なし,"antenna_check(gate, metal, ratio, [ diode_specs ... ])",Global Functions
+area,none (in condition) OR layer (Layer),なし（条件文内） または レイア（Layer）,Computes the total area or in universal DRC context: selects the primary shape if the area is meeting the condition,合計面積を計算するか、ユニバーサルDRCコンテキストにおいて面積が条件を満たす場合にプライマリ形状を選択します。,float (when layer argument is provided) or DRC expression,area (in condition) area(layer),Global Functions
+area_ratio,none (in condition),なし（条件文内）,Selects primary shapes based on the ratio of bounding box and polygon area,バウンディングボックスとポリゴン面積の比率に基づいてプライマリ形状を選択します。,DRC expression,area_ratio (in condition),Global Functions
+bbox_aspect_ratio,none (in condition),なし（条件文内）,Selects primary shapes based on the aspect ratio of their bounding boxes,バウンディングボックスのアスペクト比に基づいてプライマリ形状を選択します。,DRC expression,bbox_aspect_ratio (in condition),Global Functions
+bbox_height,none (in condition),なし（条件文内）,Selects primary shapes based on their bounding box height,バウンディングボックスの高さに基づいてプライマリ形状を選択します。,DRC expression,bbox_height (in condition),Global Functions
+bbox_max,none (in condition),なし（条件文内）,"Selects primary shapes based on their bounding box height or width, whichever is larger",バウンディングボックスの高さまたは幅の大きい方に基づいてプライマリ形状を選択します。,DRC expression,bbox_max (in condition),Global Functions
+bbox_min,none (in condition),なし（条件文内）,"Selects primary shapes based on their bounding box height or width, whichever is smaller",バウンディングボックスの高さまたは幅の小さい方に基づいてプライマリ形状を選択します。,DRC expression,bbox_min (in condition),Global Functions
+bbox_width,none (in condition),なし（条件文内）,Selects primary shapes based on their bounding box width,バウンディングボックスの幅に基づいてプライマリ形状を選択します。,DRC expression,bbox_width (in condition),Global Functions
+bjt3,"name (string) , class","名前（文字列） , クラス",Supplies the BJT3 transistor extractor class,BJT3トランジスタ抽出クラスを提供します。,DeviceExtractorBJT3Transistor,"bjt3(name) bjt3(name, class)",Global Functions
+bjt4,"name (string) , class","名前（文字列） , クラス",Supplies the BJT4 transistor extractor class,サブストレート端子を含むBJT4トランジスタ抽出クラスを提供します。,DeviceExtractorBJT4Transistor,"bjt4(name) bjt4(name, class)",Global Functions
+box,...,...,Creates a box object,ボックスオブジェクトを作成します。,DBox,box(...),Global Functions
+capacitor,"name (string), area_cap (float) , class","名前（文字列）, 単位面積容量（数値） , クラス",Supplies the capacitor extractor class,キャパシタ抽出クラスを提供します。,DeviceExtractorCapacitor,"capacitor(name, area_cap) capacitor(name, area_cap, class)",Global Functions
+capacitor_with_bulk,"name (string), area_cap (float) , class","名前（文字列）, 単位面積容量（数値） , クラス",Supplies the capacitor extractor class that includes a bulk terminal,バルク端子を含むキャパシタ抽出クラスを提供します。,DeviceExtractorCapacitorWithBulk,"capacitor_with_bulk(name, area_cap) capacitor_with_bulk(name, area_cap, class)",Global Functions
+cell,args,引数,Selects a cell for input on the default source,デフォルトソースの入力用セルを選択します。,ソースに記載なし,cell(args),Global Functions
+cheat,cell_pattern (string) { block },セルパターン（文字列） { ブロック },Hierarchy cheats,階層構造の評価をスキップ（チート）し、特定セルのローカル設定のみで計算を行います。,Layer object(s) / block result,cheat(args) { block },Global Functions
+clear_connections,none,なし,Clears all connections stored so far,これまでに記憶されたすべての接続情報をクリアします。,ソースに記載なし,clear_connections,Global Functions
+clip,args,引数,Specifies clipped input on the default source,デフォルトソース上でクリップされた入力を指定します。,ソースに記載なし,clip(args),Global Functions
+connect,"a (Layer), b (Layer)","レイアa（Layer）, レイアb（Layer）",Specifies a connection between two layers,2つのレイア間の接続を指定します。,ソースに記載なし,"connect(a, b)",Global Functions
+connect_explicit,"cell_pattern, net_names","セルパターン, ネット名リスト",Specifies explicit net connections,明示的なネット接続を指定します。,ソースに記載なし,"connect_explicit(net_names) connect_explicit(cell_pattern, net_names)",Global Functions
+connect_global,"l (Layer), name (string)","レイアl（Layer）, ネット名（文字列）",Specifies a connection to a global net,グローバルネットへの接続を指定します。,ソースに記載なし,"connect_global(l, name)",Global Functions
+connect_implicit,"cell_pattern, label_pattern","セルパターン, ラベルパターン",Specifies a label pattern for implicit net connections,暗黙的なネット接続のためのラベルパターンを指定します。,ソースに記載なし,"connect_implicit(label_pattern) connect_implicit(cell_pattern, label_pattern)",Global Functions
+corners,"layer, options","レイア, オプション",Selects corners of polygons,ポリゴンの角（コーナー）を選択します。,Layer or DRC expression,"corners(options) (in condition) corners(layer , options)",Global Functions
+covering,other (Layer),他レイア（Layer）,Selects shapes entirely covering other shapes,他の形状を完全に覆っている形状を選択します。,DRC expression,covering(other) (optionally in condition),Global Functions
+dbu,dbu_value (float),DBU値（数値）,Gets or sets the database unit to use,使用するデータベースユニット（DBU）を取得または設定します。,float (when getting),dbu(dbu_value) dbu,Global Functions
+deep,none,なし,Enters deep (hierarchical) mode,ディープ（階層）モードに移行します。,ソースに記載なし,deep,Global Functions
+deep_reject_odd_polygons,flag (boolean),フラグ（真偽値）,Gets or sets a value indicating whether the reject odd polygons in deep mode,ディープモードで変則的な（非向き付け可能な）ポリゴンを拒否するかどうかを取得または設定します。,boolean (when getting),deep_reject_odd_polygons(flag) deep_reject_odd_polygons,Global Functions
+def_output,none,なし,Gets an object describing the default output channel,デフォルトの出力チャネルを記述するオブジェクトを取得します。,Output channel object,def_output,Global Functions
+device_scaling,factor (float),スケール因子（数値）,Specifies a dimension scale factor for the geometrical device properties,幾何学的なデバイス特性の寸法スケール因子を指定します。,ソースに記載なし,device_scaling(factor),Global Functions
+diode,"name (string) , class","名前（文字列） , クラス",Supplies the diode extractor class,プレーナーダイオード抽出クラスを提供します。,DeviceExtractorDiode,"diode(name) diode(name, class)",Global Functions
+dmos3,"name (string) , class","名前（文字列） , クラス",Supplies the DMOS3 transistor extractor class,3端子DMOSトランジスタ抽出クラスを提供します。,DeviceExtractorMOS3Transistor,"dmos3(name) dmos3(name, class)",Global Functions
+dmos4,"name (string) , class","名前（文字列） , クラス",Supplies the MOS4 transistor extractor class,4端子DMOSトランジスタ抽出クラスを提供します。,DeviceExtractorMOS4Transistor,"dmos4(name) dmos4(name, class)",Global Functions
+edge,...,...,Creates an edge object,エッジオブジェクトを作成します。,DEdge,edge(...),Global Functions
+edge_layer,none,なし,Creates an empty edge layer,空のエッジレイアを作成します。,Edge Layer object,edge_layer,Global Functions
+edge_pairs,args,引数,Gets the edges from an original layer,オリジナルレイアからエッジペアを取得します。,EdgePairs object,edge_pairs(args),Global Functions
+edges,args,引数,Gets the edges from an original layer,オリジナルレイアからエッジを取得します。,Edges object,edges(args),Global Functions
+enc,...,...,"Synonym for ""enclosing""","""enclosing"" の同義語です。",Same as enclosing,enc(...),Global Functions
+enclosed,"layer, other , options","入力レイア, 他レイア , オプション",Performs an enclosing check (other enclosing layer),包囲（被囲）チェックを実行します（他のレイアが一次レイアを囲んでいるか検証）。,Edge pairs or edges,"enclosed(other , options) (in conditions) enclosed(layer, other , options)",Global Functions
+enclosing,"layer, other , options","入力レイア, 他レイア , オプション",Performs an enclosing check,包囲チェックを実行します（一次レイアが他のレイアを囲んでいるか検証）。,Edge pairs or edges,"enclosing(other , options) (in conditions) enclosing(layer, other , options)",Global Functions
+error,message (string),メッセージ（文字列）,Prints an error,エラーメッセージを出力します。,ソースに記載なし,error(message),Global Functions
+evaluate_nets,"primary_layer, secondary_layers, expression , variables","プライマリレイア, セカンダリレイア群, 式 , 変数",Evaluates expressions on nets,ネット上で式を評価します。,ソースに記載なし,"evaluate_nets(primary_layer, secondary_layers, expression , variables)",Global Functions
+extent,cell_filter,セルフィルタ,Creates a new layer with the bounding box of the default source or cell bounding boxes,デフォルトソースまたはセルのバウンディングボックスを持つ新しいレイアを作成します。,Layer object,extent extent(cell_filter),Global Functions
+extent_refs,"layer, options","レイア, オプション",Returns partial references to the boundings boxes of the polygons,ポリゴンのバウンディングボックスに対する部分的な参照を返します。,Layer or DRC expression,"extent_refs(options) extent_refs(layer, options)",Global Functions
+extents,"layer, enlargement","レイア, 拡大値",Returns the bounding box of each input object,各入力オブジェクトのバウンディングボックスを返します。,Layer or DRC expression,"extents(enlargement) extents(layer, enlargement)",Global Functions
+extract_devices,"extractor, layer_hash OR extractor_class, name, layer_hash","抽出器, レイアハッシュ または 抽出クラス, 名前, レイアハッシュ",Extracts devices for a given device extractor and device layer selection,指定されたデバイス抽出器とレイア選択に基づいてデバイスを抽出します。,ソースに記載なし,"extract_devices(extractor, layer_hash) extract_devices(extractor_class, name, layer_hash)",Global Functions
+flat,none,なし,Disables tiling mode,タイリングモード（およびディープモード）を無効化します。,ソースに記載なし,flat,Global Functions
+foreign,none,なし,Represents all other polygons from primary except the current one,現在処理中のポリゴンを除く、プライマリ入力の「他のすべての」ポリゴンを表します。,DRC expression,foreign,Global Functions
+global_transform,transformations,変換仕様,Gets or sets a global transformation,デフォルトソースレイアウトに適用するグローバル変換を取得または設定します。,Transformations (when getting),global_transform global_transform(transformations),Global Functions
+holes,layer,レイア,Selects all holes from the input polygons,入力ポリゴンからすべての孔（ホール）を選択します。,Layer or DRC expression,holes holes(layer),Global Functions
+hulls,layer,レイア,Selects all hulls from the input polygons,入力ポリゴンからすべての外形（ハル）を選択します。,Layer or DRC expression,hulls hulls(layer),Global Functions
+if_all,"c1, ... cn","条件1, ... 条件n",Evaluates to the primary shape when all condition expression results are non-empty,すべての条件式の評価結果が空でない場合、現在のプライマリ形状を返します。,DRC expression,"if_all(c1, ... cn)",Global Functions
+if_any,"c1, ... cn","条件1, ... 条件n",Evaluates to the primary shape when any condition expression results is non-empty,少なくとも1つの条件式の評価結果が空でない場合、現在のプライマリ形状を返します。,DRC expression,"if_any(c1, ... cn)",Global Functions
+if_none,"c1, ... cn","条件1, ... 条件n",Evaluates to the primary shape when all of the condition expression results are empty,すべての条件式の評価結果が空の場合、現在のプライマリ形状を返します。,DRC expression,"if_none(c1, ... cn)",Global Functions
+ignore_extraction_errors,value (boolean),値（真偽値）,Specifies whether to ignore extraction errors,素子抽出エラーを無視するかどうかを指定します。,ソースに記載なし,ignore_extraction_errors(value),Global Functions
+info,"message (string) , indent","メッセージ（文字列） , インデント",Outputs as message to the logger or progress window,ロガーまたはプログレスウィンドウにメッセージを出力します。,ソースに記載なし,"info(message) info(message, indent)",Global Functions
+input,args,引数,Fetches the shapes from the specified input from the default source,デフォルトソースから指定された入力形状（ポリゴンおよびラベル）を取得します。,Layer object,input(args),Global Functions
+inside,other (Layer),他レイア（Layer）,Selects shapes entirely inside other shapes,他の形状の完全に内部にあるプライマリ形状を選択します。,DRC expression,inside(other),Global Functions
+interacting,other (Layer),他レイア（Layer）,Selects shapes interacting with other shapes,他の形状と相互作用（接触・交差）しているプライマリ形状を選択します。,DRC expression,interacting(other) (optionally in condition),Global Functions
+is_deep?,none,なし,"Returns true, if in deep mode",ディープ（階層）モードである場合にtrueを返します。,boolean,is_deep?,Global Functions
+is_tiled?,none,なし,"Returns true, if in tiled mode",タイリングモードである場合にtrueを返します。,boolean,is_tiled?,Global Functions
+iso,...,...,"Synonym for ""isolated""","""isolated"" の同義語です。",Same as isolated,iso(...),Global Functions
+isolated,"layer, options","レイア, オプション",Performs an isolation (inter-polygon space) check,アイソレーション（ポリゴン間の間隔）チェックを実行します。,Edge pairs or edges,"isolated(options) (in conditions) iso(options) (in conditions) isolated(layer , options) iso(layer , options)",Global Functions
+l2n_data,none,なし,Gets the internal LayoutToNetlist object for the default Netter,デフォルトNetterの内部LayoutToNetlistオブジェクトを取得します。,LayoutToNetlist object,l2n_data,Global Functions
+labels,args,引数,Gets the labels (text) from an original layer,オリジナルレイアからラベル（テキスト）を取得します。,Layer object,labels(args),Global Functions
+layers,none,なし,Gets the layers contained in the default source,デフォルトソースに含まれるレイア一覧を取得します。,Array of layer descriptors,layers,Global Functions
+layout,"[what , cellname]","[入力対象 , セル名]",Specifies an additional layout for the input source.,入力ソースとして追加のレイアウトを指定します。,Source object,layout layout(what),Global Functions
+length,none (in condition) OR layer (Layer),なし（条件文内） または レイア（Layer）,Computes the total edge length of an edge layer or in universal DRC context: selects edges based on a length condition,エッジレイアの合計エッジ長を計算するか、ユニバーサルDRCコンテキストにおいて長さ条件に基づいてエッジを選択します。,float (when layer argument is provided) or DRC expression,length (in condition) length(layer),Global Functions
+log,"message (string) , indent","メッセージ（文字列） , インデント",Outputs as message to the logger window,ログウィンドウにメッセージを出力します。,ソースに記載なし,"log(message) log(message, indent)",Global Functions
+log_file,filename (string),ファイル名（文字列）,Specify the log file where to send to log to,ログの送信先ファイル名を指定します。,ソースに記載なし,log_file(filename),Global Functions
+make_layer,none,なし,Creates an empty polygon layer based on the hierarchical scheme selected,選択された階層スキーム（ディープ/フラット）に基づいた空のポリゴンレイアを作成します。,Layer object,make_layer,Global Functions
+max_area_ratio,ratio (float),比率（数値）,Gets or sets the maximum bounding box to polygon area ratio for deep mode fragmentation,ディープモードフラグメンテーション処理における、バウンディングボックスとポリゴン面積の最大比率を取得または設定します。,float (when getting),max_area_ratio(ratio) max_area_ratio,Global Functions
+max_vertex_count,count (integer),頂点数（整数）,Gets or sets the maximum vertex count for deep mode fragmentation,ディープモードフラグメンテーション処理における最大頂点数を取得または設定します。,integer (when getting),max_vertex_count(count) max_vertex_count,Global Functions
+middle,"layer, options","レイア, オプション",Returns the centers of polygon bounding boxes,ポリゴンのバウンディングボックスの中心位置を返します。,Layer or DRC expression,"middle(options) middle(layer, options)",Global Functions
+mos3,"name (string) , class","名前（文字列） , クラス",Supplies the MOS3 transistor extractor class,3端子MOSトランジスタ抽出クラスを提供します。,DeviceExtractorMOS3Transistor,"mos3(name) mos3(name, class)",Global Functions
+mos4,"name (string) , class","名前（文字列） , クラス",Supplies the MOS4 transistor extractor class,4端子MOSトランジスタ抽出クラスを提供します。,DeviceExtractorMOS4Transistor,"mos4(name) mos4(name, class)",Global Functions
+name,"layer, name (string)","レイア, 名前（文字列）",Assigns a name to a layer for reference in the LVS database,LVSデータベースで参照するための名前をレイアに割り当てます。,ソースに記載なし,"name(layer, name)",Global Functions
+name_prefix,prefix (string),プレフィックス（文字列）,Specifies the layer name prefix for auto-generated layer names,自動生成されるレイア名のプレフィックスを指定します。,ソースに記載なし,name_prefix(prefix),Global Functions
+netlist,none,なし,Obtains the extracted netlist from the default Netter,デフォルトNetterから抽出されたネットリストを取得します。,Netlist object,netlist,Global Functions
+netter,none,なし,Creates a new netter object,新しいnetterオブジェクトを作成します。,Netter object,netter,Global Functions
+new_report,"description [, filename , cellname ]","説明 [, ファイル名 , セル名 ]","Creates a new report database object for use in ""output""","""output"" で使用するための独立したレポートデータベースオブジェクトを作成します。",Report database channel object,"new_report(description [, filename , cellname ])",Global Functions
+new_target,"what , cellname","出力先 , セル名","Creates a new layout target object for use in ""output""","""output"" で使用するための独立したレイアウトターゲットオブジェクトを作成します。",Layout target channel object,"new_target(what , cellname)",Global Functions
+no_borders,none,なし,Reset the tile borders,タイルボーダーの設定をリセットします。,ソースに記載なし,no_borders,Global Functions
+notch,"layer, options","レイア, オプション",Performs a notch (intra-polygon space) check,ノッチ（同一ポリゴン内の切り欠き・間隔）チェックを実行します。,Edge pairs or edges,"notch(options) (in conditions) notch(layer , options)",Global Functions
+output,"layer, args","レイア, 引数",Outputs a layer to the report database or output layout,レイアをレポートデータベースまたは出力レイアウトに出力します。,ソースに記載なし,"output(layer, args)",Global Functions
+output_cell,cellname (string),セル名（文字列）,"Specifies a target cell, but does not change the target layout",ターゲットレイアウトやチャンネルを変更することなく、出力先ターゲットセルを指定します。,ソースに記載なし,output_cell(cellname),Global Functions
+outside,other (Layer),他レイア（Layer）,Selects shapes entirely outside other shapes,他の形状の完全に外部にあるプライマリ形状を選択します。,DRC expression,outside(other),Global Functions
+overlap,"layer, other , options","入力レイア, 他レイア , オプション",Performs an overlap check,オーバーラップ（重なり）チェックを実行します。,Edge pairs or edges,"overlap(other , options) (in conditions) overlap(layer, other , options)",Global Functions
+overlapping,other (Layer),他レイア（Layer）,Selects shapes overlapping with other shapes,他の形状と重なっているプライマリ形状を選択します。,DRC expression,overlapping(other) (optionally in condition),Global Functions
+p,"x (float), y (float)","X座標（数値）, Y座標（数値）",Creates a point object,ポイント（点）オブジェクトを作成します。,Point object,"p(x, y)",Global Functions
+path,...,...,Creates a path object,パスオブジェクトを作成します。,DPath,path(...),Global Functions
+perimeter,none (in condition) OR layer (Layer),なし（条件文内） または レイア（Layer）,Computes the total perimeter or in universal DRC context: selects the primary shape if the perimeter is meeting the condition,全周囲長を計算するか、ユニバーサルDRCコンテキストにおいて周囲長が条件を満たす場合にプライマリ形状を選択します。,float (when layer argument is provided) or DRC expression,perimeter (in condition) perimeter(layer),Global Functions
+polygon,...,...,Creates a polygon object,ポリゴンオブジェクトを作成します。,DPolygon,polygon(...),Global Functions
+polygon_layer,none,なし,Creates an empty polygon layer,空のポリゴンレイアを作成します。,Polygon Layer object,polygon_layer,Global Functions
+polygons,args,引数,Fetches the polygons (or shapes that can be converted to polygons) from the specified input from the default source,デフォルトソースの指定された入力からポリゴン（またはポリゴンに変換可能な形状）を取得します。,Layer object,polygons(args),Global Functions
+primary,none,なし,Represents the primary input of the universal DRC function,ユニバーサルDRC関数において、drc関数が呼び出されたレイア（プライマリ入力）を表します。,DRC expression,primary,Global Functions
+profile,n (integer / boolean),件数（整数） / プロファイル有効化フラグ（真偽値）,Profiles the script and provides a runtime + memory statistics,スクリプトのプロファイリングを有効にし、実行時間とメモリの統計情報を提供します。,ソースに記載なし,profile profile(n),Global Functions
+props_copy,none,なし,"Specifies ""copy properties"" on operations supporting user properties constraints",ユーザープロパティ制約をサポートする操作に対して、プライマリ入力のプロパティを出力オブジェクトに引き継ぐよう指定します。,Property constraint specifier,props_copy,Global Functions
+props_eq,none,なし,"Specifies ""same properties"" for operations supporting user properties constraints",ユーザープロパティ制約をサポートする操作に対して、同じプロパティを持つ形状間でのみ演算を行うよう指定します。,Property constraint specifier,props_eq,Global Functions
+props_ne,none,なし,"Specifies ""different properties"" for operations supporting user properties constraints",ユーザープロパティ制約をサポートする操作に対して、異なるプロパティを持つ形状間でのみ演算を行うよう指定します。,Property constraint specifier,props_ne,Global Functions
+rectangles,layer,レイア,Selects all polygons which are rectangles,長方形（レクタングル）であるすべてのポリゴンを選択します。,Layer or DRC expression,rectangles rectangles(layer),Global Functions
+rectilinear,layer,レイア,Selects all polygons which are rectilinear,直交ポリゴン（すべての辺がX軸またはY軸に平行）であるすべてのポリゴンを選択します。,Layer or DRC expression,rectilinear rectilinear(layer),Global Functions
+region_overlap,args,引数,"Specifies region selected input in ""overlap mode""",オーバーラップモード（クリップなし）で領域選択された入力を指定します。,ソースに記載なし,region_overlap(args),Global Functions
+region_touch,args,引数,"Specifies region selected input in ""touch mode""",タッチモード（クリップなし）で領域選択された入力を指定します。,ソースに記載なし,region_touch(args),Global Functions
+relative_height,none (in condition),なし（条件文内）,Selects primary shapes based on the ratio of height and width of their bounding boxes,バウンディングボックスの高さと幅の比率に基づいてプライマリ形状を選択します。,DRC expression,relative_height (in condition),Global Functions
+report,"description [, filename , cellname ]","説明 [, ファイル名 , セル名 ]",Specifies a report database for output,出力先のレポートデータベースを指定します。,Report database channel object,"report(description [, filename , cellname ])",Global Functions
+report_netlist,"[filename , long (boolean)]","[ファイル名 , 詳細出力フラグ（真偽値）]",Specifies an extracted netlist report for output,抽出されたネットリストレポート（L2Nデータベース）を出力用に指定します。,ソースに記載なし,"report_netlist([ filename , long ])",Global Functions
+resistor,"name (string), sheet_rho (float) , class","名前（文字列）, シート抵抗値（数値） , クラス",Supplies the resistor extractor class,抵抗器抽出クラスを提供します。,DeviceExtractorResistor,"resistor(name, sheet_rho) resistor(name, sheet_rho, class)",Global Functions
+resistor_with_bulk,"name (string), sheet_rho (float) , class","名前（文字列）, シート抵抗値（数値） , クラス",Supplies the resistor extractor class that includes a bulk terminal,バルク端子を含む抵抗器抽出クラスを提供します。,DeviceExtractorResistorWithBulk,"resistor_with_bulk(name, sheet_rho) resistor_with_bulk(name, sheet_rho, class)",Global Functions
+rounded_corners,"layer, inner, outer, n","レイア, 内側半径, 外側半径, 角の分割数",Applies corner rounding,角の丸め処理を適用します。,Layer or DRC expression,"rounded_corners(inner, outer, n) rounded_corners(layer, inner, outer, n)",Global Functions
+secondary,layer (Layer),レイア（Layer）,"Provides secondary input for the ""drc"" universal DRC function",ユニバーサルDRC式（drc関数）に対してセカンダリ（追加）入力を提供します。,DRC expression,secondary(layer),Global Functions
+select,args,引数,Specifies cell filters on the default source,デフォルトソースに対してセルフィルタを指定します。,ソースに記載なし,select(args),Global Functions
+sep,...,...,"Synonym for ""separation""","""separation"" の同義語です。",Same as separation,sep(...),Global Functions
+separation,"layer, other , options","入力レイア, 他レイア , オプション",Performs a separation check,セパレーション（2つのレイア間の距離）チェックを実行します。,Edge pairs or edges,"separation(other , options) (in conditions) separation(layer, other , options)",Global Functions
+silent,none,なし,Resets verbose mode,詳細出力（verbose）モードを解除します（verbose(false)と同等）。,ソースに記載なし,silent,Global Functions
+sized,"layer, d , mode OR layer, dx, dy , mode","レイア, サイジング量 , モード または レイア, X量, Y量 , モード",Returns the sized version of the input,入力形状をサイズ変更（拡大・縮小）した結果を返します。,Layer or DRC expression,"sized(d , mode) sized(dx, dy , mode)) sized(layer, d , mode) sized(layer, dx, dy , mode))",Global Functions
+smoothed,"layer, d","レイア, 許容誤差d",Applies smoothing,スムージング（平滑化）処理を適用します。,Layer or DRC expression,"smoothed(d) smoothed(layer, d)",Global Functions
+soft_connect,"a (Layer), b (Layer)","上側レイアa（Layer）, 下側レイアb（Layer）",Specifies a soft connection between two layers,2つのレイア間のソフト接続（方向性のある高抵抗接続）を指定します。,ソースに記載なし,"soft_connect(a, b)",Global Functions
+soft_connect_global,"l (Layer), name (string)","レイアl（Layer）, グローバルネット名（文字列）",Specifies a soft connection to a global net,グローバルネットへのソフト接続を指定します。,ソースに記載なし,"soft_connect_global(l, name)",Global Functions
+source,"[what , cellname]","[入力ファイル/オブジェクト , セル名]",Specifies a source layout,デフォルトのソースレイアウトを指定のファイルやオブジェクトに置き換えます。,Source object (when called without args),source source(what),Global Functions
+space,"layer, options","レイア, オプション",Performs a space check,スペース（同一次元内およびポリゴン間の間隔）チェックを実行します。,Edge pairs or edges,"space(options) (in conditions) space(layer , options)",Global Functions
+sparse_array_limit,limit (float),限界値（数値）,Gets or sets the sparse array singularization limit,ディープモードにおいて、スパースアレイを単一インスタンスに展開する閾値比率を取得または設定します。,float (when getting),sparse_array_limit(limit) sparse_array_limit,Global Functions
+squares,layer,レイア,Selects all polygons which are squares,正方形であるすべてのポリゴンを選択します。,Layer or DRC expression,squares squares(layer),Global Functions
+switch,"c1, r1, c2, r2, ..., cn, rn , rdef","条件1, 結果1, 条件2, 結果2, ..., 条件n, 結果n , デフォルト結果","A conditional selector for the ""drc"" universal DRC function",ユニバーサルDRC関数（drc）用の条件選択機能を提供します。,DRC expression,switch(...),Global Functions
+target,"[what , cellname]","[出力先 , セル名]",Specify the target layout,出力先のターゲットレイアウトを指定します。,Layout target channel object,"target target(what , cellname)",Global Functions
+target_netlist,"filename (string) [, format , comment ]","ファイル名（文字列） [, フォーマット , コメント ]","With this statement, an extracted netlist is finally written to a file",抽出されたネットリストを指定されたファイルに書き出します。,ソースに記載なし,"target_netlist(filename [, format , comment ])",Global Functions
+threads,n (integer),スレッド数（整数）,Specifies the number of CPU cores to use in tiling mode,タイリングモードで並列処理に使用するCPUコア（スレッド）数を指定または取得します。,integer (when getting),threads(n) threads,Global Functions
+tile_borders,"b (float) OR bx (float), by (float)","ボーダー幅 または X方向ボーダー幅, Y方向ボーダー幅",Specifies a minimum tile border,タイリング処理時の最小タイルボーダー（外周余白距離）を指定します。,ソースに記載なし,"tile_borders(b) tile_borders(bx, by)",Global Functions
+tiles,"t (float) OR w (float), h (float)","タイルサイズ または タイル幅, タイル高さ",Specifies tiling,タイリングモードを有効にし、タイルのサイズを指定します。,ソースに記載なし,"tiles(t) tiles(w, h)",Global Functions
+top_level,flag (boolean),フラグ（真偽値）,Specifies that the circuit is a chip top level circuit,回路がチップの最上位（トップレベル）回路であることを指定します。,ソースに記載なし,top_level(flag),Global Functions
+verbose,m (boolean),有効化フラグ（真偽値）,"Returns true, if verbose mode is enabled / Sets or resets verbose mode",詳細出力モードが有効な場合にtrueを返します。 / 詳細出力（verbose）モードの設定または解除を行います。,boolean,verbose? verbose verbose(m),Global Functions
+warn,message (string),メッセージ（文字列）,Prints a warning,警告メッセージを出力します。,ソースに記載なし,warn(message),Global Functions
+width,"layer, options","レイア, オプション",Performs a width check,幅（同一ポリゴンの対向エッジ間距離）チェックを実行します。,Edge pairs or edges,"width(options) (in conditions) width(layer , options)",Global Functions
+with_holes,none (in condition),なし（条件文内）,Selects all input polygons according to their number of holes in DRC expressions,DRC式において、内部にある孔（ホール）の数に基づいてポリゴンを選択します。,DRC expression,with_holes (in condition),Global Functions
+write_spice,"[use_net_names [, with_comments]] OR [writer_delegate [, use_net_names [, with_comments]]]","[ネット名使用フラグ , コメント出力フラグ] または [ライターデリゲート [, ネット名使用フラグ , コメント出力フラグ]]",Defines SPICE output format (with options),target_netlist用のSPICE出力フォーマットおよびオプションを定義します。,SPICE format specification / writer object,"write_spice([ use_net_names [, with_comments ] ]) write_spice(writer_delegate [, use_net_names [, with_comments ] ])",Global Functions
+&,other (DRCLayer),other（DRCLayer）,Computes a boolean AND between self and other.,selfとotherの間のブーリアンAND（論理積）演算を計算します。,DRCLayer,self & other,Layer Object
+,other (DRCLayer),other（DRCLayer）,Includes the edges or polygons from the other layer into this layer. An alias for join.,別のレイヤのエッジまたはポリゴンをこのレイヤに追加します。joinメソッドのエイリアスです。,DRCLayer,self + other,Layer Object
+and,"other (DRCLayer), prop_constraint (PropertyConstraint)",other（DRCLayer）、prop_constraint（プロパティ制約）,"Computes a boolean AND between self and other, with optional property constraints.",selfとotherの間のブーリアンAND（論理積）演算を計算します。プロパティ制約を指定することも可能です。,DRCLayer,"layer.and(other , prop_constraint)",Layer Object
+andnot,other (DRCLayer),other（DRCLayer）,Computes Boolean AND and NOT results at the same time and returns a two-element array.,AND演算とNOT演算の結果を同時に計算し、2つの要素を持つ配列（AND結果とNOT結果）を返します。,Array of DRCLayer,layer.andnot(other),Layer Object
+area,None,なし,Returns the total area of the polygons in the region in square micrometers.,領域内のポリゴンの総面積（平方マイクロメートル単位）を返します。,Float,layer.area,Layer Object
+bbox,None,なし,Returns the overall bounding box of the layer.,レイヤ全体のバウンディングボックスを返します。,DBox,layer.bbox,Layer Object
+clean,None,なし,Marks a layer as clean (merged semantics).,レイヤをクリーン状態（マージされたセマンティクス）としてマークします。,DRCLayer,layer.clean,Layer Object
+count,None,なし,Returns the number of raw objects on the layer.,レイヤ上の生オブジェクト（フラットなカウント）の数を返します。,Integer,layer.count,Layer Object
+covering,"other (DRCLayer), min_count (Integer), max_count (Integer)",other（DRCLayer）、min_count（数値）、max_count（数値）,Selects shapes or regions of self which completely cover (enclose) shapes from the other region.,他の領域の図形を完全にカバー（包含）しているselfの図形または領域を選択します。,DRCLayer,"layer.covering(other [, min_count [, max_count]])",Layer Object
+dup,None,なし,Duplicates a layer (creates a deep copy).,レイヤを複製します（ディープコピーを作成します）。,DRCLayer,layer.dup,Layer Object
+edges,mode (Symbol),mode（シンボル）,Decomposes the layer into single edges.,レイヤを単一のエッジに分解します。,DRCLayer (Edge Layer),layer.edges(mode),Layer Object
+enclosing,"other_layer (DRCLayer), value (Float/Integer), options",other_layer（DRCLayer）、value（数値）、options（オプション）,An enclosing check (layer enclosing other_layer by not less than the given distance).,包囲チェック（layerがother_layerを指定距離以上包囲しているか確認）を行います。,DRCLayer (Edge Pair Layer),"layer.enclosing(other_layer, value , options)",Layer Object
+flatten,None,なし,Flattens the hierarchical layer into a flat collection.,階層構造を持つレイヤを平坦化（フラット化）します。,DRCLayer,layer.flatten,Layer Object
+forget,None,なし,Cleans up memory for this layer.,このレイヤのメモリを解放・クリーンアップします。,Nil,layer.forget,Layer Object
+inside,other (DRCLayer),other（DRCLayer）,"Selects edges, edge pairs or polygons of self which are completely inside the other layer.",別のレイヤの内部に完全に含まれるselfのエッジ、エッジペア、またはポリゴンを選択します。,DRCLayer,layer.inside(other),Layer Object
+interacting,"other (DRCLayer), min_count (Integer), max_count (Integer)",other（DRCLayer）、min_count（数値）、max_count（数値）,Selects shapes or regions of self which touch or overlap shapes from the other region.,別の領域の図形と接触または重なるselfの図形または領域を選択します。,DRCLayer,"layer.interacting(other [, min_count [, max_count]])",Layer Object
+isolated,"value (Float/Integer), options",value（数値）、options（オプション）,An inter-polygon isolation check (space check between different polygons).,ポリゴン間のアイソレーション（分離）チェックを行います。,DRCLayer (Edge Pair Layer),"layer.isolated(value , options)",Layer Object
+join,other (DRCLayer),other（DRCLayer）,Joins the layer with another layer. An alias for '+'.,レイヤを別のレイヤと結合します。'+' 演算子のエイリアスです。,DRCLayer,layer.join(other),Layer Object
+merge,overlap_count (Integer),overlap_count（数値）,Merges the layer (modifies the layer in place).,レイヤをマージ（統合）します（呼び出し元のレイヤ自体を変更します）。,DRCLayer,layer.merge(overlap_count),Layer Object
+merged,overlap_count (Integer),overlap_count（数値）,Returns a new merged layer.,マージされた新しいレイヤを返します。,DRCLayer,layer.merged(overlap_count),Layer Object
+not,"other (DRCLayer), prop_constraint (PropertyConstraint)",other（DRCLayer）、prop_constraint（プロパティ制約）,Computes boolean NOT between self and other.,selfとotherの間のブーリアンNOT（差集合）演算を計算します。,DRCLayer,"layer.not(other , prop_constraint)",Layer Object
+or,other (DRCLayer),other（DRCLayer）,Computes boolean OR between self and other.,selfとotherの間のブーリアンOR（和集合）演算を計算します。,DRCLayer,layer.or(other),Layer Object
+outside,other (DRCLayer),other（DRCLayer）,"Selects edges, edge pairs or polygons of self which are entirely outside edges or polygons from the other layer.",別のレイヤのエッジまたはポリゴンの完全に外部にあるselfのエッジ、エッジペア、またはポリゴンを選択します。,DRCLayer,layer.outside(other),Layer Object
+overlap,"other_layer (DRCLayer), value (Float/Integer), options",other_layer（DRCLayer）、value（数値）、options（オプション）,Checks whether layer and other_layer overlap by at least the given length.,レイヤとother_layerが指定された長さ以上重なっているかチェックします。,DRCLayer (Edge Pair Layer),"layer.overlap(other_layer, value , options)",Layer Object
+polygons,enlargement (Float/Integer),enlargement（数値）,Converts edge pairs into polygons connecting the edges.,エッジペアを、エッジ同士を接続するポリゴンに変換して返します。,DRCLayer (Polygon Layer),layer.polygons(enlargement),Layer Object
+raw,None,なし,Marks a layer as raw (disables implicit merging).,レイヤをロー（生データ）状態としてマークします（暗黙的なマージを無効化します）。,DRCLayer,layer.raw,Layer Object
+separation,"other_layer (DRCLayer), value (Float/Integer), options",other_layer（DRCLayer）、value（数値）、options（オプション）,A two-layer spacing check.,2レイヤ間の間隔（スペーシング）チェックを行います。,DRCLayer (Edge Pair Layer),"layer.separation(other_layer, value , options)",Layer Object
+sized,"d / (dx, dy), mode, size_inside(l) / size_outside(l), steps(n)","d / (dx, dy)、mode、size_inside(l) / size_outside(l)、steps(n)",Polygon sizing (per-edge biasing) and returns a new layer.,ポリゴンのサイズ変更（各エッジのバイアス調整）を行い、新しいレイヤを返します。,DRCLayer (Polygon Layer),"layer.sized(d , options)",Layer Object
+space,"value (Float/Integer), options",value（数値）、options（オプション）,Performs a space check and returns a collection of edge pairs.,スペース（間隔）チェックを実行し、違反箇所をエッジペアとして返します。,DRCLayer (Edge Pair Layer),"layer.space(value , options)",Layer Object
+width,"value (Float/Integer), options",value（数値）、options（オプション）,Performs a width check and returns a collection of edge pairs.,幅（ウィドス）チェックを実行し、違反箇所をエッジペアとして返します。,DRCLayer (Edge Pair Layer),"layer.width(value , options)",Layer Object
+xor,other (DRCLayer),other（DRCLayer）,Computes boolean XOR between self and other.,selfとotherの間のブーリアンXOR（排他的論理和）演算を計算します。,DRCLayer,layer.xor(other),Layer Object
+antenna_check,"gate (Region/Layer), metal (Region/Layer), ratio (float), diode_specs ... (Array/Layer), texts (Text Layer)","ゲート (Region/Layer), メタル (Region/Layer), 比率 (float), ダイオード仕様 ... (Array/Layer), テキスト (Text Layer)",Performs an antenna check to avoid plasma induced damage by collecting connected nets and computing metal to gate area ratios.,接続されたネットを収集してメタル対ゲートの面積比を計算し、プラズマ起因の損傷を防ぐためのアンテナチェックを実行します。,Region (error shapes),"antenna_check(gate, metal, ratio, [ diode_specs ... ] , texts)",Netter object
+clear_connections,None,なし,Clears all connections defined and stored so far.,これまでに定義され保存されたすべての接続をクリアします。,None,clear_connections,Netter object
+connect,"a (Layer/Region), b (Layer/Region)","a (Layer/Region), b (Layer/Region)",Specifies a physical electrical connection between two polygon or text layers based on overlapping or touching shapes.,図形の重なりや接触に基づいて、2つのポリゴン層またはテキスト層間の物理的な電気接続を指定します。,None,"connect(a, b)",Netter object
+connect_explicit,"net_names (Array of Strings) OR cell_pattern (String), net_names (Array of Strings)","ネット名リスト (Stringの配列) または セルパターン (String), ネット名リスト (Stringの配列)","Specifies a list of net names for nets to connect virtually even if there is no physical connection (""must connect"" nets).",物理的な接続がない場合でも、仮想的に接続するネット名リスト（「接続必須」ネット）を指定します。,None,"connect_explicit(net_names)
+connect_explicit(cell_pattern, net_names)",Netter object
+connect_global,"l (Layer/Region), name (String)","l (Layer/Region), 名前 (String)",Connects the shapes from the given layer l to a global net with the specified name.,指定されたレイヤ l の図形を、指定された名前を持つグローバルネットに接続します。,None,"connect_global(l, name)",Netter object
+connect_implicit,"label_pattern (String) OR cell_pattern (String), label_pattern (String)","ラベルパターン (String) または セルパターン (String), ラベルパターン (String)","Specifies a search pattern for implicit net connections (""must connect"" nets) to join physically disconnected subnets with the same name.",同名の物理的に分断されたサブネットを接続するための、暗黙的なネット接続（「接続必須」ネット）の検索パターンを指定します。,None,"connect_implicit(label_pattern)
+connect_implicit(cell_pattern, label_pattern)",Netter object
+device_scaling,factor (float),倍率 (float),Specifies a dimension scale factor for the geometrical device properties during extraction.,抽出時における素子の幾何学的特性の寸法スケールファクター（倍率）を指定します。,None,device_scaling(factor),Netter object
+evaluate_nets,"primary_layer (Layer), secondary_layers (Hash), expression (String) , variables (Hash)","プライマリレイヤ (Layer), セカンダリレイヤ (Hash), 式 (String) , 変数 (Hash)",Evaluates net properties and annotates shapes from a given primary layer on the nets using expressions.,式を使用してネットの特性を評価し、ネット上の指定されたプライマリレイヤの図形に注釈・処理を行います。,Region,"evaluate_nets(primary_layer, secondary_layers, expression , variables)",Netter object
+extract_devices,"extractor (DeviceExtractor) OR extractor_class (Class), name (String), layer_hash (Hash)","抽出器インスタンス (DeviceExtractor) または 抽出器クラス (Class), 名前 (String), レイヤハッシュ (Hash)","Extracts devices based on the given extractor class/object, device name, and device layer selection map.",指定された抽出器クラス/オブジェクト、素子名、および素子レイヤ選択マップに基づいて素子を抽出します。,DeviceClass,"extract_devices(extractor, layer_hash)
+extract_devices(extractor_class, name, layer_hash)",Netter object
+ignore_extraction_errors,value (bool),値 (bool),Specifies whether to ignore extraction errors during netlist extraction.,ネットリスト抽出中に抽出エラーを無視するかどうかを指定します。,None,ignore_extraction_errors(value),Netter object
+l2n_data,None,なし,Gets the internal LayoutToNetlist object to access internal details of the netter.,netterの内部詳細にアクセスするための内部LayoutToNetlistオブジェクトを取得します。,LayoutToNetlist,l2n_data,Netter object
+name,"layer (Layer), name (String) [, layer_number (int), datatype_number (int) layer_info (LayerInfo)]","レイヤ (Layer), 名前 (String) [, レイヤ番号 (int), データタイプ番号 (int) レイヤ情報 (LayerInfo)]",Assigns a name (and optional layer/datatype info) to a layer for identification in the netlist/LVS database.,ネットリストやLVSデータベース内で識別できるように、レイヤに名前（およびオプションでレイヤ/データタイプ情報）を割り当てます。,None,"name(layer, name)
+name(layer, name, layer_number, datatype_number)
+name(layer, name, layer_info)",Netter object
+name_prefix,prefix (String),接頭辞 (String),"Specifies the name prefix for auto-generated layer names (default is ""l"").",自動生成されるレイヤ名の接頭辞を指定します（デフォルトは「l」）。,None,name_prefix(prefix),Netter object
+netlist,None,なし,Gets the extracted netlist or triggers extraction layout analysis if not done yet.,抽出されたネットリストを取得します。まだ実行されていない場合はレイアウト解析・抽出をトリガーします。,Netlist,netlist,Netter object
+soft_connect,"a (Layer/Region), b (Layer/Region)","a (Layer/Region), b (Layer/Region)",Specifies a soft (high-ohmic/directional) connection between two layers.,2つのレイヤ間のソフト接続（高抵抗/方向性のある接続）を指定します。,None,"soft_connect(a, b)",Netter object
+soft_connect_global,"l (Layer/Region), name (String)","l (Layer/Region), 名前 (String)",Soft-connects the shapes from the given layer l to a global net with the specified name.,指定されたレイヤ l の図形を、指定された名前を持つグローバルネットにソフト接続します。,None,"soft_connect_global(l, name)",Netter object
+top_level,value (bool),値 (bool),"Specifies top level mode for extraction, controlling whether disconnected must-connect nets are treated as warnings or errors.",抽出時のトップレベルモードを指定し、未接続の必須接続ネットを警告として扱うかエラーとして扱うかを制御します。,None,top_level(value),Netter object
+cell,name (String),セル名（文字列）,Creates a new source that delivers shapes from the specified cell.,指定されたセルから図形を提供する新しいソースを作成します。,Source,source.cell(name),Source Object
+cell_name,None,なし,Returns the name of the currently selected cell.,現在選択されているセルの名前を返します。,String,cell_name,Source Object
+cell_obj,None,なし,Returns the Cell object of the currently selected cell.,現在選択されているセルのCellオブジェクトを返します。,Cell,cell_obj,Source Object
+clip,"box (DBox) or p1 (DPoint), p2 (DPoint) or l (Float), b (Float), r (Float), t (Float)",ボックス（DBox）、または点1（DPoint）・点2（DPoint）、または左・下・右・上の座標（数値）,Creates a source which represents a rectangular part of the original input clipped to the rectangle.,矩形領域で切り取られた（クリップされた）元の入力の長方形部分を表す新しいソースを作成します。,Source,"source.clip(box)
+source.clip(p1, p2)
+source.clip(l, b, r, t)",Source Object
+edge_pairs,"layer (Integer), datatype (Integer), layer_info (LayerInfo), filter (String), etc. (optional)",レイヤー番号（整数）、データタイプ（整数）、レイヤー情報（LayerInfo）、フィルター文字列など（省略可能）,Creates a layer with the edge pairs from the given layer of the source.,ソースの指定されたレイヤーからエッジ対（edge pairs）を含むレイヤーを作成します。,Edge pairs layer,"source.edge_pairs
+source.edge_pairs(layer)
+source.edge_pairs(layer, datatype)
+source.edge_pairs(layer_info)
+source.edge_pairs(filter, ...)",Source Object
+edges,"layer (Integer), datatype (Integer), layer_info (LayerInfo), filter (String), etc. (optional)",レイヤー番号（整数）、データタイプ（整数）、レイヤー情報（LayerInfo）、フィルター文字列など（省略可能）,Creates a layer with the edges from the given layer of the source by decomposing shapes into edges.,図形をエッジに分解することで、ソースの指定されたレイヤーからエッジ図形を含むレイヤーを作成します。,Edge layer,"source.edges
+source.edges(layer)
+source.edges(layer, datatype)
+source.edges(layer_info)
+source.edges(filter, ...)",Source Object
+extent,"cell_filter (String, optional)",セルフィルター文字列（globパターン、省略可能）,"Returns a layer with the bounding box of the top cell, or selected cells if a filter is provided.",トップセルのバウンディングボックス（外接矩形）を含むレイヤーを返します。セルフィルターを指定した場合は選択されたセルのバウンディングボックスを返します。,Layer,"source.extent
+source.extent(cell_filter)",Source Object
+global_transform,"transformations (DTrans, DVector, DCplxTrans, or transformation spec strings like shift, rotate, magnify, mirror_x, mirror_y)","変換オブジェクト（DTrans, DVector, DCplxTrans）または変換指定文字列（shift, rotate, magnify, mirror_x, mirror_yなど）",Returns a new source representing the transformed layout.,変換が適用されたレイアウトを表す新しいソースを返します。引数なしの場合はグローバル変換をリセットします。,Source,"global_transform
+global_transform(transformations)",Source Object
+input,"layer (Integer), datatype (Integer), layer_info (LayerInfo), filter (String), props_spec (optional)",レイヤー番号（整数）、データタイプ（整数）、レイヤー情報（LayerInfo）、フィルター式（文字列）、プロパティ指定など（省略可能）,Creates a layer with the shapes (polygons and texts) from the given layer of the source.,ソースの指定されたレイヤーから図形（ポリゴンおよびテキスト）を含むレイヤーを作成します。引数なしの場合は空のレイヤーを作成します。,Layer,"source.input
+source.input(layer)
+source.input(layer, datatype)
+source.input(layer_info)
+source.input(filter, ...)
+source.input(props_spec, ...)",Source Object
+labels,"layer (Integer), datatype (Integer), layer_info (LayerInfo), filter (String) (optional)",レイヤー番号（整数）、データタイプ（整数）、レイヤー情報（LayerInfo）、フィルター文字列など（省略可能）,Creates a true text layer with the labels (texts) from the given layer of the source.,ソースの指定されたレイヤーからラベル（テキスト）のみを抽出して真のテキストレイヤーを作成します。,Text layer,"source.labels
+source.labels(layer)
+source.labels(layer, datatype)
+source.labels(layer_info)
+source.labels(filter, ...)",Source Object
+layers,None,なし,Delivers a list of LayerInfo objects representing the layers inside the source.,ソース内に含まれるレイヤーを表す LayerInfo オブジェクトのリストを返します。,List of LayerInfo objects,source.layers,Source Object
+layout,None,なし,Returns the Layout object associated with this source.,このソースに関連付けられている Layout オブジェクトを返します。,Layout,layout,Source Object
+make_layer,None,なし,Creates an empty polygon layer based on the hierarchy of the layout (provided for backward compatibility).,レイアウトの階層に基づいて空のポリゴンレイヤーを作成します（旧コードとの互換性のために提供されています）。,Layer,make_layer,Source Object
+overlapping,"region parameters (box, points, etc.)",領域の指定パラメータ（ボックス、点など）,Creates a new source delivering shapes from a specified rectangular region in overlapping mode (unclipped).,指定された矩形領域とバウンディングボックスがオーバーラップする図形全体を切り取らずにそのまま提供する新しいソースを作成します。,Source,source.overlapping(...),Source Object
+path,None,なし,Gets the path of the corresponding layout file or nil if there is no path.,対応するレイアウトファイルのパスを取得します。パスが存在しない場合は nil を返します。,String or nil,path,Source Object
+polygons,"layer (Integer), datatype (Integer), layer_info (LayerInfo), filter (String) (optional)",レイヤー番号（整数）、データタイプ（整数）、レイヤー情報（LayerInfo）、フィルター文字列など（省略可能）,"Creates a layer with the polygon shapes (boxes, paths, polygons) from the given layer of the source.",ソースの指定されたレイヤーからポリゴン化可能な図形（ボックス、パス、ポリゴン）のみを含むレイヤーを作成します。,Polygon layer,"source.polygons
+source.polygons(layer)
+source.polygons(layer, datatype)
+source.polygons(layer_info)
+source.polygons(filter, ...)",Source Object
+select,"filter1, filter2, ... (Strings using glob pattern with optional '+' or '-' prefix)",セル名のフィルター文字列（glob形式、有効化は'+'、無効化は'-'を接頭辞として使用）,Constructs a new source object with the given cell filters applied.,指定されたセルフィルターを適用した新しいソースオブジェクトを構築します。,Source,"new_source = source.select(filter1, filter2, ...)",Source Object
+touching,"box (DBox) or p1 (DPoint), p2 (DPoint) or l (Float), b (Float), r (Float), t (Float)",ボックス（DBox）、または点1（DPoint）・点2（DPoint）、または左・下・右・上の座標（数値）,Creates a new source delivering shapes touching the specified rectangular region with their bounding box (unclipped).,指定された矩形領域にバウンディングボックスが接触（タッチ）する図形全体を切り取らずにそのまま提供する新しいソースを作成します。,Source,"source.touching(box)
+source.touching(p1, p2)
+source.touching(l, b, r, t)",Source Object
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,

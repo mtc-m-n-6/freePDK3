@@ -1,0 +1,196 @@
+﻿セクション名,Rule,Value,Unit,Description,説明,ソース
+N-Well (NW) Rules,NW.1,57.5,nm,Minimum vertical width of NW,NWの最小垂直幅,1
+N-Well (NW) Rules,NW.2,84,nm,Minimum horizontal width of NW,NWの最小水平幅,1
+N-Well (NW) Rules,NW.3,6237,nm²,Minimum area/enclosed area of NW,NWの最小面積/囲まれた面積,1
+N-Well (NW) Rules,NW.4,Not in source,Not in source,NW must be orthogonal,NWは直交しなければならない,1
+N-Well (NW) Rules,NW.5,7,nm,Minimum extension of NW past GATE (not cut by GCUT),GCUTでカットされていないGATEを超えるNWの最小延伸,1
+Active (ACT) Rules,ACT.1,21,nm,Minimum vertical width of ACT,ACTの最小垂直幅,1
+Active (ACT) Rules,ACT.2,21.5,nm,Minimum vertical spacing of ACT,ACTの最小垂直間隔,1
+Active (ACT) Rules,ACT.3,84,nm,Minimum horizontal width of ACT,ACTの最小水平幅,1
+Active (ACT) Rules,ACT.4,Not in source,Not in source,ACT should be continuous,ACTは連続している必要がある,1
+Active (ACT) Rules,ACT.5,10,nm,Minimum vertical spacing between ACT and BPR,ACTとBPRの間の最小垂直間隔,1
+Active (ACT) Rules,ACT.6,Not in source,Not in source,ACT may not bend,ACTは曲げてはならない,1
+Active (ACT) Rules,ACT.7,Not in source,Not in source,ACT must end inside DUMMY layer.,ACTはDUMMY層の内部で終了しなければならない,1
+Buried Power Rail (BPR) Rules,BPR.1,31.5,nm,BPR Vertical Width,BPRの垂直幅,1
+Buried Power Rail (BPR) Rules,BPR.2,84,nm,Minimum vertical spacing between BPR layers,BPR層間の最小垂直間隔,1
+Buried Power Rail (BPR) Rules,BPR.3,Not in source,Not in source,BPR must be continuous,BPRは連続していなければならない,1
+Buried Power Rail (BPR) Rules,BPR.4,Not in source,Not in source,BPR might not bend,BPRは曲げてはならない,1
+Via Buried Power Rail (VBPR) Rules,VBPR.1,Not in source,Not in source,VBPR Must be rectangle,VBPRは長方形でなければならない,1
+Via Buried Power Rail (VBPR) Rules,VBPR.2,10.5,nm,Exact VERTICAL width of VBPR,VBPRの正確な垂直幅,1
+Via Buried Power Rail (VBPR) Rules,VBPR.3,15,nm,Exact HORIZONTAL length of VBPR,VBPRの正確な水平長,1
+Via Buried Power Rail (VBPR) Rules,VBPR.4,13.5,nm,"VBPR enclosure by BPR on two opposite sides, horizontal direction",水平方向におけるBPRによる対向2辺のVBPRエンクロージャ,1
+Via Buried Power Rail (VBPR) Rules,VBPR.5,0,nm,"VBPR enclosure by MOA on two opposite sides, vertical direction",垂直方向におけるMOAによる対向2辺のVBPRエンクロージャ,1
+Via Buried Power Rail (VBPR) Rules,VBPR.6,27,nm,Minimum horizontal spacing between two VBPR layer,2つのVBPR層間の最小水平間隔,1
+Via Buried Power Rail (VBPR) Rules,VBPR.7,10,nm,Minimum vertical spacing between two VBPR layer,2つのVBPR層間の最小垂直間隔,1
+Via Buried Power Rail (VBPR) Rules,VBPR.8,10,nm,Minimum spacing between VBPR and ACTIVE layer polygons not on the same net,同一ネット上にないVBPRとACTIVE層ポリゴン間の最小間隔,1
+Via Buried Power Rail (VBPR) Rules,VBPR.9,Not in source,Not in source,VBPR may not interact with GCUT or GATE or DUMMY,VBPRはGCUT、GATE、またはDUMMYと相互作用してはならない,1
+Gate Layer,GATE.1,15,nm,GATE exact horizontal width,GATEの正確な水平幅,1
+Gate Layer,GATE.2,27,nm,Minimum horizontal spacing between GATE or DUMMY layers,GATE層またはDUMMY層間の最小水平間隔,1
+Gate Layer,GATE.3,Not in source,Not in source,GATE may not bend,GATEは曲げてはならない,1
+Gate Layer,GATE.4,21.5,nm,GATE min extension past ACT,ACTを超えるGATEの最小延伸,1
+Gate Layer,GATE.5,40,nm,GATE minimum vertical length,GATEの最小垂直長,1
+Gate Layer,GATE.6,Not in source,Not in source,GATE may not be discontinuous along the vertical axis. Use GCUT layer to mark cuts in the GATE,GATEは垂直軸に沿って不連続であってはならない。GATEのカットを示すにはGCUT層を使用する,1
+Gate Layer,GATE.7,Not in source,Not in source,"ACT layer vertical edge may not lie inside, or coincide with, the GATE layer",ACT層の垂直エッジはGATE層の内側に位置したり重なったりしてはならない,1
+Gate Layer,GATE.8,6,nm,Minimum horizontal spacing between ACT and GATE (not cut by GCUT and not interacting with ACT),ACTとGATE間の最小水平間隔（GCUTでカットされず、ACTと相互作用しないもの）,1
+Gate Contact (GCON) Layer,GCON.1,13,nm,Exact VERTICAL width of GCON,GCONの正確な垂直幅,1
+Gate Contact (GCON) Layer,GCON.2,15,nm,Exact HORIZONTAL length of GCON,GCONの正確な水平長,1
+Gate Contact (GCON) Layer,GCON.3,Not in source,Not in source,GCON must overlap gate,GCONはゲートとオーバーラップしなければならない,1
+Gate Contact (GCON) Layer,GCON.4,1,nm,Extension past MOB in vertical direction,垂直方向におけるMOBを超える延伸,1
+Gate Contact (GCON) Layer,GCON.5,25,nm,Minimum horizontal spacing between two GCON layer,2つのGCON層間の最小水平間隔,1
+Gate Contact (GCON) Layer,GCON.6,28,nm,Minimum vertical spacing between two GCON layer,2つのGCON層間の最小垂直間隔,1
+Gate Contact (GCON) Layer,GCON.7,6,nm,Minimum spacing between GCON and M0A layer polygons,GCONとM0A層ポリゴン間の最小間隔,1
+Gate Contact (GCON) Layer,GCON.8,25,nm,Minimum horizontal spacing between GCON and GATE layer,GCONとGATE層間の最小水平間隔,1
+Gate Contact (GCON) Layer,GCON.9,13.5,nm,Minimum vertical spacing between GCON and GCUT,GCONとGCUT間の最小垂直間隔,1
+Gate Contact (GCON) Layer,GCON.10,180,nm²,Minimum GCON Area,最小GCON面積,1
+Gate Contact (GCON) Layer,GCON.11,Not in source,Not in source,GCON may not bend,GCONは曲げてはならない,1
+Gate Contact (GCON) Layer,GCON.12,165,nm²,Minimum area of overlap between GCON and MOB,GCONとMOBの最小オーバーラップ面積,1
+Gate Contact (GCON) Layer,GCON.13,180,nm²,Minimum area of overlap between GCON and GATE,GCONとGATEの最小オーバーラップ面積,1
+Gate Contact (GCON) Layer,GCON.14,Not in source,Not in source,GCON may not interact with GCUT or DUMMY,GCONはGCUTまたはDUMMYと相互作用してはならない,1
+Dummy Layer,DUMMY.1,15,nm,DUMMY exact horizontal width,DUMMYの正確な水平幅,1
+Dummy Layer,DUMMY.2,40,nm,DUMMY minimum vertical length,DUMMYの最小垂直長,1
+Dummy Layer,DUMMY.3,115.5,nm,Minimum vertical space,最小垂直間隔,1
+Dummy Layer,DUMMY.4,Not in source,Not in source,DUMMY may not bend,DUMMYは曲げてはならない,1
+Dummy Layer,DUMMY.5,Not in source,Not in source,DUMMY must completely overlap GATE,DUMMYはGATEを完全にオーバーラップしなければならない,1
+Gate Metal Cut (GCUT) Layer,GCUT.1,10.5,nm,Exact vertical width of GCUT (shape is oriented horizontally),GCUTの正確な垂直幅（形状は水平方向に配置）,1
+Gate Metal Cut (GCUT) Layer,GCUT.2,42,nm,Minimum horizontal length of GCUT(shape is oriented horizontally),GCUTの最小水平長（形状は水平方向に配置）,1
+Gate Metal Cut (GCUT) Layer,GCUT.3,69,nm,Minimum horizontal space of GCUT,GCUTの最小水平間隔,1
+Gate Metal Cut (GCUT) Layer,GCUT.4,20.5,nm,GCUT minimum space to ACT (must be 20.5=10+10.5//),ACTに対するGCUTの最小間隔（20.5=10+10.5//である必要があります）,1
+Gate Metal Cut (GCUT) Layer,GCUT.5,Not in source,Not in source,GCUT may not bend,GCUTは曲げてはならない,1
+Gate Metal Cut (GCUT) Layer,GCUT.6,Not in source,Not in source,GCUT vertical edge must coincide with DUMMY vertical edge,GCUTの垂直エッジはDUMMYの垂直エッジと重ならなければならない,1
+Gate Metal Cut (GCUT) Layer,GCUT.7,Not in source,Not in source,GCUT layer may not exist without the layer GATE,GCUT層はGATE層なしで存在することはできない,1
+Gate Metal Cut (GCUT) Layer,GCUT.8,Not in source,Not in source,"GCUT layer vertical edge may not lie inside, or coincide with, the GATE layer",GCUT層の垂直エッジはGATE層の内側に位置したり重なったりしてはならない,1
+Gate Metal Cut (GCUT) Layer,GCUT.9,Not in source,Not in source,GCUT may not interact with ACT,GCUTはACTと相互作用してはならない,1
+Gate Metal Cut (GCUT) Layer,GCUT.10,105,nm,Minimum vertical spacing between two GCUT layer,2つのGCUT層間の最小垂直間隔,1
+NIM/PIM Layer,NIM/PIM.1,84,nm,Minimum width/spacing/notch of NIM/PIM,NIM/PIMの最小幅/間隔/ノッチ,1
+NIM/PIM Layer,NIM/PIM.2,57.5,nm,Minimum vertical width of NIM/PIM,NIM/PIMの最小垂直幅,1
+NIM/PIM Layer,NIM/PIM.3,20,nm,Minimum enclose of ACT by NIM/PIM on vertical direction,垂直方向におけるNIM/PIMによるACTの最小エンクロージャ,1
+NIM/PIM Layer,NIM/PIM.4,13.5,nm,Minimum enclose of ACT by NIM/PIM on horizontal direction,水平方向におけるNIM/PIMによるACTの最小エンクロージャ,1
+NIM/PIM Layer,NIM/PIM.5,4830,nm²,Minimum NIM/PIM area/enclosed area,最小NIM/PIM面積/囲まれた面積,1
+NIM/PIM Layer,NIM/PIM.6,Not in source,Not in source,NIM and PIM may not overlap,NIMとPIMはオーバーラップしてはならない,1
+M0A Layer,M0A.1,15,nm,Minimum width of MOA,MOAの最小幅,1
+M0A Layer,M0A.2,6,nm,Minimum spacing of MOA to GATE,MOAからGATEへの最小間隔,1
+M0A Layer,M0A.3,5,nm,Minimum extension of ACT past MOA (horizontal direction),MOAを超えるACTの最小延伸（水平方向）,1
+M0A Layer,M0A.4,21.5,nm,Vertical length of MOA,MOAの垂直長,1
+M0A Layer,M0A.5,10,nm,Vertical spacing of MOA,MOAの垂直間隔,1
+M0A Layer,M0A.6,Not in source,Not in source,MOA may not bend,MOAは曲げてはならない,1
+M0A Layer,M0A.7,11,nm,Minimum vertical overlap between MOA and ACTIVE,MOAとACTIVEの最小垂直オーバーラップ,1
+M0A Layer,M0A.8,Not in source,Not in source,MOA may not be outside ACTIVE,MOAはACTIVEの外側にあってはならない,1
+M0A Layer,M0A.9,322.5,nm²,Minimum MOA area,最小MOA面積,1
+V0A Layer,V0A.1,Not in source,Not in source,VOA shape is a square,VOAの形状は正方形である,1
+V0A Layer,V0A.2,13,nm,VOA is a square with 13nm edge length,VOAは一辺13nmの正方形である,1
+V0A Layer,V0A.3,29,nm,Minimum spacing of VOA - Full alignment,VOAの最小間隔 - 完全配置,1
+V0A Layer,V0A.4,30,nm,Minimum corner-to-corner spacing between two VOA instances,2つのVOAインスタンス間のコーナー対コーナー最小間隔,1
+V0A Layer,V0A.5,Not in source,Not in source,VOA must always interact with MOA and MOB,VOAは常にMOAおよびMOBと相互作用しなければならない,1
+V0A Layer,V0A.6,6,nm,"VOA enclosure by MOB on two opposite sides, horizontal direction",水平方向におけるMOBによる対向2辺のVOAエンクロージャ,1
+V0A Layer,V0A.7,-1,nm,"VOA enclosure by MOB on two opposite sides, vertical direction",垂直方向におけるMOBによる対向2辺のVOAエンクロージャ,1
+V0A Layer,V0A.8,1,nm,"VOA enclosure by MOA on two opposite sides, horizontal direction",水平方向におけるMOAによる対向2辺のVOAエンクロージャ,1
+V0A Layer,V0A.9,-1,nm,"VOA enclosure by MOA on opposite sides, vertical direction",垂直方向におけるMOAによる対向辺のVOAエンクロージャ,1
+V0A Layer,V0A.10,8,nm,Minimum space of VOA and MOB of different net,異なるネットのVOAおよびMOBの最小間隔,1
+V0A Layer,V0A.11,16.5,nm,Minimum space of VOA and MOA of different net,異なるネットのVOAおよびMOAの最小間隔,1
+V0A Layer,V0A.12,Not in source,Not in source,VOA may not interact with DUMMY or GATE layer,VOAはDUMMYまたはGATE層と相互作用してはならない,1
+V0A Layer,V0A.13,156,nm²,Minimum area overlap between MOA and VOA,MOAとVOAの最小オーバーラップ面積,1
+M0B Layer,MOB.1,11,nm,Minimum Vertical width of MOB,MOBの最小垂直幅,1
+M0B Layer,MOB.2,10,nm,Minimum Vertical spacing of MOB,MOBの最小垂直間隔,1
+M0B Layer,MOB.3,22,nm,Minimum Horizontal width of MOB,MOBの最小水平幅,1
+M0B Layer,M0B.4,20,nm,M0B minimum horizontal spacing,M0Bの最小水平間隔,1
+M0B Layer,M0B.5,Not in source,Not in source,MOB may not bend,MOBは曲げてはならない,1
+M0B Layer,M0B.6,3.5,nm,Minimum extension of MOB past GCON,GCONを超えるMOBの最小延伸,1
+M0B Layer,M0B.7,242,nm²,Minimum MOB area,最小MOB面積,1
+V0B Layer,V0B.1,Not in source,Not in source,VOB shape is a rectangle,VOBの形状は長方形である,1
+V0B Layer,V0B.2,14,nm,VOB exact horizontal width,VOBの正確な水平幅,1
+V0B Layer,V0B.3,10,nm,VOB exact vertical width,VOBの正確な垂直幅,1
+V0B Layer,V0B.4,10.5,nm,Minimum vertical spacing of VOB - Full alignment,VOBの最小垂直間隔 - 完全配置,1
+V0B Layer,V0B.5,20,nm,Minimum horizontal spacing of VOB - Full alignment,VOBの最小水平間隔 - 完全配置,1
+V0B Layer,V0B.6,22,nm,Minimum corner-to-corner spacing between two VOB instances,2つのVOBインスタンス間のコーナー対コーナー最小間隔,1
+V0B Layer,V0B.7,Not in source,Not in source,VOB must always interact with MOB and M1,VOBは常にMOBおよびM1と相互作用しなければならない,1
+V0B Layer,V0B.8,4,nm,"VOB enclosure by MOB on two opposite sides, horizontal direction",水平方向におけるMOBによる対向2辺のVOBエンクロージャ,1
+V0B Layer,V0B.9,0,nm,"VOB enclosure by MOB on two opposite sides, VERTICAL direction",垂直方向におけるMOBによる対向2辺のVOBエンクロージャ,1
+V0B Layer,V0B.10,0,nm,"VOB enclosure by M1 on two opposite sides, horizontal direction",水平方向におけるM1による対向2辺のVOBエンクロージャ,1
+V0B Layer,V0B.11,2.5,nm,"VOB enclosure by M1 on two opposite sides, VERTICAL direction",垂直方向におけるM1による対向2辺のVOBエンクロージャ,1
+Metalx (Mx) Layers,"Mx.1 (x=1,2)",14,nm,METALx width minimum,METALxの最小幅,1
+Metalx (Mx) Layers,Mx.1 (x=3),15,nm,METALx width minimum,METALxの最小幅,1
+Metalx (Mx) Layers,Mx.1 (x=4-6),24,nm,METALx width minimum,METALxの最小幅,1
+Metalx (Mx) Layers,Mx.1 (x=7-9),40,nm,METALx width minimum,METALxの最小幅,1
+Metalx (Mx) Layers,Mx.1 (x=10-11),80,nm,METALx width minimum,METALxの最小幅,1
+Metalx (Mx) Layers,Mx.1 (x=12-13),160,nm,METALx width minimum,METALxの最小幅,1
+Metalx (Mx) Layers,Mx.2 (x=1-3),15,nm,METALx spacing minimum,METALxの最小間隔,1
+Metalx (Mx) Layers,Mx.2 (x=4-6),24,nm,METALx spacing minimum,METALxの最小間隔,1
+Metalx (Mx) Layers,Mx.2 (x=7-9),40,nm,METALx spacing minimum,METALxの最小間隔,1
+Metalx (Mx) Layers,Mx.2 (x=10-11),80,nm,METALx spacing minimum,METALxの最小間隔,1
+Metalx (Mx) Layers,Mx.2 (x=12-13),160,nm,METALx spacing minimum,METALxの最小間隔,1
+Metalx (Mx) Layers,Mx.3 (x=2-3),750,nm,METALx maximum width,METALxの最大幅,1
+Metalx (Mx) Layers,Mx.3 (x=4-6),1200,nm,METALx maximum width,METALxの最大幅,1
+Metalx (Mx) Layers,Mx.3 (x=7-9),2000,nm,METALx maximum width,METALxの最大幅,1
+Metalx (Mx) Layers,Mx.3 (x=10-11),4000,nm,METALx maximum width,METALxの最大幅,1
+Metalx (Mx) Layers,Mx.3 (x=12-13),8000,nm,METALx maximum width,METALxの最大幅,1
+Metalx (Mx) Layers,Mx.4 (x=1-3),45,nm,Minimum spacing of METALx wider than 45nm and longer than 45nm,45nmより広く45nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.4 (x=4-6),72,nm,Minimum spacing of METALx wider than 72nm and longer than 72nm,72nmより広く72nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Vx1x.4 (x=7-9),120,nm,Minimum spacing of METALx wider than 120nm and longer than 120nm,120nmより広く120nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.4 (x=10-11),240,nm,Minimum spacing of METALx wider than 240nm and longer than 240nm,240nmより広く240nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.4 (x=12-13),480,nm,Minimum spacing of METALx wider than 480nm and longer than 480nm,480nmより広く480nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.5 (x=1-3),135,nm,Minimum spacing of METALx wider than 135nm and longer than 135nm,135nmより広く135nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.5 (x=4-6),216,nm,Minimum spacing of METALx wider than 216nm and longer than 216nm,216nmより広く216nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.5 (x=7-9),360,nm,Minimum spacing of METALx wider than 360nm and longer than 360nm,360nmより広く360nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.5 (x=10-11),720,nm,Minimum spacing of METALx wider than 720nm and longer than 720nm,720nmより広く720nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.5 (x=12-13),1440,nm,Minimum spacing of METALx wider than 1440nm and longer than 1440nm,1440nmより広く1440nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.6 (x=1-3),405,nm,Minimum spacing of METALx wider than 405nm and longer than 405nm,405nmより広く405nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.6 (x=4-6),648,nm,Minimum spacing of METALx wider than 648nm and longer than 648nm,648nmより広く648nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.6 (x=7-9),1080,nm,Minimum spacing of METALx wider than 1080nm and longer than 1080nm,1080nmより広く1080nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.6 (x=10-11),2160,nm,Minimum spacing of METALx wider than 2160nm and longer than 2160nm,2160nmより広く2160nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,Mx.6 (x=12-13),4320,nm,Minimum spacing of METALx wider than 4320nm and longer than 4320nm,4320nmより広く4320nmより長いMETALxの最小間隔,1
+Metalx (Mx) Layers,"Mx.7 (x=1-3,7-9)",Not in source,Not in source,Double patterning Error,ダブルパターニングエラー,1
+Metalx (Mx) Layers,"Mx.8 (x=1-3,7-9)",23 - 77,%,Density Balancing Rule: The density of decomposed metals should be between 23 and 77%,密度バランスルール：分解された金属の密度は23〜77%の間である必要があります,1
+ViaX (Vx) Layers,"Vx.1 (x=1,2,4,5,7,8,10,12,VRDL)",Not in source,Not in source,Vx shape is square,Vxの形状は正方形である,1
+ViaX (Vx) Layers,"Vx.1 (x=3,6,9,11)",Not in source,Not in source,Vx shape is rectangle,Vxの形状は長方形である,1
+ViaX (Vx) Layers,"Vx.2 (x=1,2)",14,nm,Vx is a square with 14nm edge length,Vxは一辺14nmの正方形である,1
+ViaX (Vx) Layers,Vx.2 (x=3),"15, 24",nm,Vx is a rectangle with 15nm horizontal edge and 24nm vertical edge,Vxは水平辺15nm、垂直辺24nmの長方形である,1
+ViaX (Vx) Layers,"Vx.2 (x=4,5)",24,nm,Vx is a square with 24nm edge length,Vxは一辺24nmの正方形である,1
+ViaX (Vx) Layers,Vx.2 (x=6),"40, 24",nm,Vx is a rectangle with 40nm horizontal edge and 24nm vertical edge,Vxは水平辺40nm、垂直辺24nmの長方形である,1
+ViaX (Vx) Layers,"Vx.2 (x=7,8)",40,nm,Vx is a square with 40nm edge length,Vxは一辺40nmの正方形である,1
+ViaX (Vx) Layers,Vx.2 (x=9),"40, 80",nm,V9 is a rectangle with 40nm horizontal edge and 80nm vertical edge,V9は水平辺40nm、垂直辺80nmの長方形である,1
+ViaX (Vx) Layers,Vx.2 (x=10),80,nm,V10 is a square with 80nm edge length,V10は一辺80nmの正方形である,1
+ViaX (Vx) Layers,Vx.2 (x=11),"80, 160",nm,V11 is a rectangle with 80nm horizontal edge and 160nm vertical edge,V11は水平辺80nm、垂直辺160nmの長方形である,1
+ViaX (Vx) Layers,"Vx.2 (x=12,VRDL)",160,nm,V12 is a square with 160nm edge length,V12は一辺160nmの正方形である,1
+ViaX (Vx) Layers,"Vx.3 (x=1,2)",14,nm,Minimum spacing of Vx - Full alignment,Vxの最小間隔 - 完全配置,1
+ViaX (Vx) Layers,Vx.3a (x=3),15,nm,Minimum horizontal spacing of Vx - Full alignment,Vxの最小水平間隔 - 完全配置,1
+ViaX (Vx) Layers,Vx.3b (x=3),24,nm,Minimum vertical spacing of Vx - Full alignment,Vxの最小垂直間隔 - 完全配置,1
+ViaX (Vx) Layers,"Vx.3 (x=4,5)",24,nm,Minimum spacing of Vx - Full alignment,Vxの最小間隔 - 完全配置,1
+ViaX (Vx) Layers,Vx.3a (x=6),40,nm,Minimum horizontal spacing of Vx - Full alignment,Vxの最小水平間隔 - 完全配置,1
+ViaX (Vx) Layers,Vx.3b (x=6),24,nm,Minimum vertical spacing of Vx - Full alignment,Vxの最小垂直間隔 - 完全配置,1
+ViaX (Vx) Layers,"Vx.3 (x=7,8)",40,nm,Minimum spacing of Vx - Full alignment,Vxの最小間隔 - 完全配置,1
+ViaX (Vx) Layers,Vx.3a (x=9),40,nm,Minimum horizontal spacing of Vx - Full alignment,Vxの最小水平間隔 - 完全配置,1
+ViaX (Vx) Layers,Vx.3b (x=9),80,nm,Minimum vertical spacing of V9 - Full alignment,V9の最小垂直間隔 - 完全配置,1
+ViaX (Vx) Layers,Vx.3 (x=10),80,nm,Minimum spacing of V10 - Full alignment,V10の最小間隔 - 完全配置,1
+ViaX (Vx) Layers,Vx.3a (x=11),80,nm,Minimum horizontal spacing of V11 - Full alignment,V11の最小水平間隔 - 完全配置,1
+ViaX (Vx) Layers,Vx.3b (x=11),160,nm,Minimum vertical spacing of V11 - Full alignment,V11の最小垂直間隔 - 完全配置,1
+ViaX (Vx) Layers,"Vx.3 (x=12,VRDL)",160,nm,Minimum spacing of V12 - Full alignment,V12の最小間隔 - 完全配置,1
+ViaX (Vx) Layers,Vx.4 (x=1-12),Not in source,Not in source,Vx should be enclosed between Mx and Mx+1,VxはMxとMx+1の間に囲まれる必要があります,1
+ViaX (Vx) Layers,Vx.4 (x=VRDL),Not in source,Not in source,Vx should be enclosed between M13 and RDL,VxはM13とRDLの間に囲まれる必要があります,1
+ViaX (Vx) Layers,"Vx.5 (x=1,3,5,7,9,11,VRDL)",0,nm,"Vx enclosure by Mx on two opposite sides, horizontal direction",水平方向におけるMxによる対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,Vx.5 (x=2),3,nm,"Vx enclosure by Mx on two opposite sides, horizontal direction",水平方向におけるMxによる対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,"Vx.5 (x=4,6,8,10,12)",10,nm,"Vx enclosure by Mx on two opposite sides, horizontal direction",水平方向におけるMxによる対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,"Vx.6 (x=1,3)",3,nm,"Vx enclosure by Mx on two opposite sides, vertical direction",垂直方向におけるMxによる対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,"Vx.6 (x=2,4,6,8,10,12)",0,nm,"Vx enclosure by Mx on two opposite sides, vertical direction",垂直方向におけるMxによる対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,"Vx.6 (x=5,7,9,11,VRDL)",10,nm,"Vx enclosure by Mx on two opposite sides, vertical direction",垂直方向におけるMxによる対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,"Vx.7 (x=1,3)",3,nm,"Vx enclosure by Mx+1 on two opposite sides, horizontal direction",水平方向におけるMx+1による対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,"Vx.7 (x=2,4,6,8,10,12)",0,nm,"Vx enclosure by Mx+1 on two opposite sides, horizontal direction",水平方向におけるMx+1による対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,"Vx.7 (x=5,7,9,11)",10,nm,"Vx enclosure by Mx+1 on two opposite sides, horizontal direction",水平方向におけるMx+1による対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,Vx.7 (x=VRDL),80,nm,VRDL enclosure by RDL in horizontal direction,水平方向におけるRDLによるVRDLエンクロージャ,1
+ViaX (Vx) Layers,"Vx.8 (x=1,3,5,7,9,11)",0,nm,"Vx enclosure by Mx+1 on two opposite sides, vertical direction",垂直方向におけるMx+1による対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,Vx.8 (x=2),3,nm,"Vx enclosure by Mx+1 on two opposite sides, vertical direction",垂直方向におけるMx+1による対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,"Vx.8 (x=4,6,8,10,12)",10,nm,"Vx enclosure by Mx+1 on two opposite sides, vertical direction",垂直方向におけるMx+1による対向2辺のVxエンクロージャ,1
+ViaX (Vx) Layers,Vx.8 (x=VRDL),80,nm,VRDL enclosure by RDL in vertical direction,垂直方向におけるRDLによるVRDLエンクロージャ,1
+ViaX (Vx) Layers,"Vx.9 (x=1,2)",196,nm²,Minimum area overlap between Mx and Vx,MxとVxの最小オーバーラップ面積,1
+ViaX (Vx) Layers,Vx.9 (x=3),360,nm²,Minimum area overlap between Mx and Vx,MxとVxの最小オーバーラップ面積,1
+ViaX (Vx) Layers,"Vx.9 (x=4,5)",576,nm²,Minimum area overlap between Mx and Vx,MxとVxの最小オーバーラップ面積,1
+ViaX (Vx) Layers,Vx.9 (x=6),960,nm²,Minimum area overlap between Mx and Vx,MxとVxの最小オーバーラップ面積,1
+ViaX (Vx) Layers,"Vx.9 (x=7,8)",1600,nm²,Minimum area overlap between M7 and V7,M7とV7の最小オーバーラップ面積,1
+ViaX (Vx) Layers,Vx.9 (x=9),200,nm²,Minimum area overlap between M9 and V9,M9とV9の最小オーバーラップ面積,1
+ViaX (Vx) Layers,Vx.9 (x=10),6400,nm²,Minimum area overlap between M10 and V10,M10とV10の最小オーバーラップ面積,1
+ViaX (Vx) Layers,Vx.9 (x=11),12800,nm²,Minimum area overlap between M11 and V11,M11とV11の最小オーバーラップ面積,1
+ViaX (Vx) Layers,"Vx.9 (x=12,VRDL)",25600,nm²,Minimum area overlap between M12 and V12,M12とV12の最小オーバーラップ面積,1
+RDL Layer,RDL.1,1.6,μm,RDL width minimum,RDLの最小幅,1
+RDL Layer,RDL.2,1.6,μm,RDL spacing minimum,RDLの最小間隔,1
+Other Rules,GRID,0.5,nm,Shapes on all layers must be on a 0.5 nm grid,全層の形状は0.5 nmグリッド上になければならない,1
+Other Rules,ANTENNA,50:1,Not in source,Ratio of Maximum Allowed (GATE or Metal Layer Area) to transistor Gate Area,トランジスタゲート面積に対する許容最大（GATEまたは金属層面積）の比率,1
+Geometry Check,1,Not in source,Not in source,Non-orthogonal shapes are not allowed,非直交形状は許可されていません,1
