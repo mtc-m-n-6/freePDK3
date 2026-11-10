@@ -14,3 +14,10 @@ FreePDK3のLayerMapとデザインルールを使い、KLayoutのDRC（Ruby）�
 
 - FreePDK3：[upstreamのLICENSEに書かれたライセンス名と著作権者]
 - KLayout：[ドキュメントのライセンス]
+
+## ディレクトリ構成
+C:/Git/freePDK3/
+- data/raw/ : 原本データ
+- docs/ : 学習ログ・判断記録など
+- src/ : Pythonソース（今後追加）
+- tests/ : テスト（今後追加）
