@@ -7,6 +7,7 @@
 ## 環境
 - OS：Windows／エディタ：VS Code／Python：[3.15.2]／KLayout：[0.30.12]／テスト：pytest
 - 長さの単位はnm。KLayoutは数値のみだとμmとして扱うため、`.nm`を付ける。
+- シェル：Windows PowerShell。コマンドは、PowerShellで動く形で案内してください（外部コマンドは`.exe`を付ける、等）。
 
 ## AIへの依頼のルール
 1. 不確かな点は「不確か」と明記する。KLayoutのコマンド・APIは、確信がなければ推測で書かない。
